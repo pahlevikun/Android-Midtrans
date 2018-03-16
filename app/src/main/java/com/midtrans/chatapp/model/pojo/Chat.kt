@@ -1,4 +1,4 @@
-package com.midtrans.chatapp.model
+package com.midtrans.chatapp.model.pojo
 
 import android.os.Parcel
 import android.os.Parcelable
@@ -6,11 +6,11 @@ import android.os.Parcelable
 /**
  * Created by farhan on 3/16/18.
  */
-data class Chat(private val id: Int,
-                private val sender: String,
-                private val avatar: String,
-                private val message: String,
-                private val sent_at: String) : Parcelable {
+data class Chat(val id: Int,
+                val sender: String,
+                val avatar: String,
+                val message: String,
+                val sent_at: String) : Parcelable {
     constructor(source: Parcel) : this(
             source.readInt(),
             source.readString(),
