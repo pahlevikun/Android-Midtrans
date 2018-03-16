@@ -10,6 +10,10 @@ import android.database.sqlite.SQLiteOpenHelper
 import com.midtrans.chatapp.model.pojo.Chat
 import java.util.*
 
+/**
+ * Created by farhan on 3/16/18.
+ */
+
 class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     var res: Resources = context.resources

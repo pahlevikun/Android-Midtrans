@@ -6,6 +6,7 @@ import android.os.Parcelable
 /**
  * Created by farhan on 3/16/18.
  */
+
 data class Chat(val id: Int,
                 val sender: String,
                 val avatar: String,

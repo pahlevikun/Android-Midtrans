@@ -1,4 +1,4 @@
-package com.beehapps.eddokter.system.config
+package com.midtrans.chatapp.etc.config
 
 /**
  * Created by farhan on 10/15/17.

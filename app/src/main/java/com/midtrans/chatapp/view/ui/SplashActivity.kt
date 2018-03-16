@@ -5,6 +5,10 @@ import android.os.Bundle
 import com.midtrans.chatapp.R
 import com.midtrans.chatapp.presenter.impls.SplashPresenter
 
+/**
+ * Created by farhan on 3/16/18.
+ */
+
 class SplashActivity : AppCompatActivity() {
 
     private var resume = false
