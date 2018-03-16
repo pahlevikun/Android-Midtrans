@@ -2,25 +2,21 @@ package com.midtrans.chatapp.view.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.leocardz.link.preview.library.LinkPreviewCallback
 import com.leocardz.link.preview.library.SourceContent
 import com.leocardz.link.preview.library.TextCrawler
 import com.midtrans.chatapp.R
 import com.midtrans.chatapp.model.pojo.Chat
-import com.midtrans.chatapp.presenter.interfaces.NotifyCallback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.adapter_chat_self.view.*
 import kotlinx.android.synthetic.main.adapter_chat_user.view.*
 import java.util.*
-import android.support.v4.content.ContextCompat.startActivity
-import android.content.Intent
-import android.net.Uri
 
 
 /**
@@ -93,13 +89,12 @@ class ChatRoomAdapter(private val context: Context, private val listChat: ArrayL
                     @SuppressLint("SetTextI18n")
                     override fun onPos(sourceContent: SourceContent, b: Boolean) {
                         itemView.linearLayoutChatPreviewUser.visibility = View.VISIBLE
-                        itemView.textChatPreviewUser.text = "\n${sourceContent.title}" +
-                                "\n${sourceContent.description}"
+                        itemView.textChatPreviewUser.text = sourceContent.description
                         Picasso
                                 .with(context)
                                 .load(sourceContent.images.toString()
-                                        .replace("[","")
-                                        .replace("]",""))
+                                        .replace("[", "")
+                                        .replace("]", ""))
                                 .into(itemView.imageViewChatPreviewUser)
                         itemView.linearLayoutChatPreviewUser.setOnClickListener {
                             val intent = Intent(Intent.ACTION_VIEW)
@@ -137,12 +132,12 @@ class ChatRoomAdapter(private val context: Context, private val listChat: ArrayL
                     @SuppressLint("SetTextI18n")
                     override fun onPos(sourceContent: SourceContent, b: Boolean) {
                         itemView.linearLayoutChatPreviewSelf.visibility = View.VISIBLE
-                        itemView.textChatPreviewSelf.text = "\n${sourceContent.title}\n${sourceContent.description}"
+                        itemView.textChatPreviewSelf.text = sourceContent.description
                         Picasso
                                 .with(context)
                                 .load(sourceContent.images.toString()
-                                        .replace("[","")
-                                        .replace("]",""))
+                                        .replace("[", "")
+                                        .replace("]", ""))
                                 .into(itemView.imageViewChatPreviewSelf)
                         itemView.linearLayoutChatPreviewSelf.setOnClickListener {
                             val intent = Intent(Intent.ACTION_VIEW)
