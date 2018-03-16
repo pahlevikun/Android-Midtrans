@@ -14,27 +14,33 @@
     android:padding="@dimen/_3sdp"
     tools:ignore="RtlHardcoded">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/textChat"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        tools:ignore="UselessParent">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="left"
+        android:paddingEnd="@dimen/_13sdp"
+        android:paddingStart="@dimen/_8sdp"
+        android:paddingTop="@dimen/_5sdp"
+        android:text="Contoh Teks"
+        android:textColor="@color/colorTextChatBodyUser"
+        android:textSize="@dimen/_14ssp"
+        tools:ignore="HardcodedText,RtlHardcoded" />
 
-        <TextView
-            android:id="@+id/textChat"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="left"
-            android:paddingBottom="@dimen/_5sdp"
-            android:paddingEnd="@dimen/_10sdp"
-            android:paddingStart="@dimen/_7sdp"
-            android:paddingTop="@dimen/_5sdp"
-            android:text="contoh Teks"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/_12ssp"
-            tools:ignore="HardcodedText,RtlHardcoded" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/textChatTimeSelf"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="right"
+        android:paddingBottom="@dimen/_5sdp"
+        android:paddingRight="@dimen/_13sdp"
+        android:paddingTop="@dimen/_5sdp"
+        android:text="12:08"
+        android:textColor="@color/colorTextTimeChatUser"
+        android:textSize="@dimen/_10ssp"
+        android:textStyle="italic"
+        tools:ignore="HardcodedText,RtlSymmetry" />
 
 </LinearLayout>

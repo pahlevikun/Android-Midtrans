@@ -16,17 +16,30 @@
     tools:ignore="RtlHardcoded,UselessParent">
 
     <TextView
-        android:id="@+id/textChatSelf"
+        android:id="@+id/textChatBodySelf"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="left"
-        android:paddingBottom="@dimen/_5sdp"
-        android:paddingLeft="@dimen/_7sdp"
-        android:paddingRight="@dimen/_10sdp"
+        android:paddingLeft="@dimen/_8sdp"
+        android:paddingRight="@dimen/_13sdp"
         android:paddingTop="@dimen/_5sdp"
         android:text="contoh Teks"
-        android:textColor="@color/colorWhite"
-        android:textSize="@dimen/_12ssp"
+        android:textColor="@color/colorTextChatBodySelf"
+        android:textSize="@dimen/_14ssp"
         tools:ignore="HardcodedText" />
+    <TextView
+        android:id="@+id/textChatTimeSelf"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="right"
+        android:paddingBottom="@dimen/_5sdp"
+        android:paddingRight="@dimen/_13sdp"
+        android:paddingTop="@dimen/_5sdp"
+        android:text="12:08"
+        android:textStyle="italic"
+        android:textColor="@color/colorTextTimeChatSelf"
+        android:textSize="@dimen/_10ssp"
+        tools:ignore="HardcodedText,RtlSymmetry" />
 </LinearLayout>

@@ -12,7 +12,7 @@ import android.util.Log
 import com.midtrans.chatapp.R
 import com.midtrans.chatapp.etc.config.APIConfig
 import com.midtrans.chatapp.presenter.interfaces.SplashInterface
-import com.midtrans.chatapp.view.ui.ChatActivity
+import com.midtrans.chatapp.view.ui.ChatRoomActivity
 
 /**
  * Created by farhan on 3/16/18.
@@ -84,7 +84,7 @@ class SplashPresenter : SplashInterface {
     private fun splashLanding(activity: Activity) {
         Handler().postDelayed(object : Thread() {
             override fun run() {
-                val intent = Intent(activity, ChatActivity::class.java)
+                val intent = Intent(activity, ChatRoomActivity::class.java)
                 activity.startActivity(intent)
                 activity.finish()
             }
