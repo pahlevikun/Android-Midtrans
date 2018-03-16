@@ -51,7 +51,6 @@
                 android:layout_weight="1"
                 android:gravity="left"
                 android:paddingEnd="@dimen/_13sdp"
-                android:paddingTop="@dimen/_5sdp"
                 android:text="Contoh Teks"
                 android:textColor="@color/colorTextChatBodySelf"
                 android:textSize="@dimen/_14ssp"
