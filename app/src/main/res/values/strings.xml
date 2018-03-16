@@ -6,5 +6,7 @@
     <string name="alter_button_permission">Yes</string>
     <string name="chat_activity_edittext_message">Enter a Message</string>
     <string name="chat_activity_textview_lastseen_dummy">last seen 21 minutes ago</string>
+    <string name="progress_loading">Please Wait</string>
+    <string name="progress_getting">Getting data...</string>
 
 </resources>

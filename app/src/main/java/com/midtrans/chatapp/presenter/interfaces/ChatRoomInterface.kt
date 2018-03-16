@@ -1,5 +1,6 @@
 package com.midtrans.chatapp.presenter.interfaces
 
+import android.app.Activity
 import com.midtrans.chatapp.model.pojo.Chat
 
 /**
@@ -8,5 +9,5 @@ import com.midtrans.chatapp.model.pojo.Chat
 interface ChatRoomInterface {
     fun getChat(callback: ServerCallback)
 
-    fun parsingChat(response: String): ArrayList<Chat>
+    fun parsingChat(response: String, context: Activity): ArrayList<Chat>
 }

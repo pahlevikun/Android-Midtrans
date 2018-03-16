@@ -1,10 +1,12 @@
+@file:Suppress("DEPRECATION")
+
 package com.midtrans.chatapp.view.ui
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import com.midtrans.chatapp.R
 import com.midtrans.chatapp.model.pojo.Chat
 import com.midtrans.chatapp.presenter.impls.ChatRoomPresenter
@@ -20,23 +22,32 @@ import kotlinx.android.synthetic.main.activity_chat_room.*
 class ChatRoomActivity : AppCompatActivity() {
 
     private val presenter = ChatRoomPresenter()
+    private var loading: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_room)
 
+        loading = ProgressDialog.show(this, getString(R.string.progress_loading),
+                getString(R.string.progress_getting), false, false)
         presenter.getChat(object : ServerCallback {
             override fun onSuccess(response: String) {
-                setUpAdapter(presenter.parsingChat(response))
+                hideDialog()
+                setUpAdapter(presenter.parsingChat(response, this@ChatRoomActivity))
             }
 
             override fun onFailed(response: String) {
+                hideDialog()
                 Snackbar.make(coordinatorLayoutChatRoom, response, Snackbar.LENGTH_SHORT).show()
+                setUpAdapter(presenter.parsingChat(response, this@ChatRoomActivity))
             }
 
             override fun onFailure(throwable: Throwable) {
+                hideDialog()
                 Snackbar.make(coordinatorLayoutChatRoom, throwable.toString(),
                         Snackbar.LENGTH_SHORT).show()
+                setUpAdapter(presenter.parsingChat(throwable.toString(),
+                        this@ChatRoomActivity))
             }
         })
     }
@@ -54,6 +65,10 @@ class ChatRoomActivity : AppCompatActivity() {
         recyclerViewChatRoom.isNestedScrollingEnabled = false
         recyclerViewChatRoom.adapter = adapter
         adapter.notifyDataSetChanged()
+    }
 
+    private fun hideDialog() {
+        if (loading!!.isShowing)
+            loading!!.dismiss()
     }
 }

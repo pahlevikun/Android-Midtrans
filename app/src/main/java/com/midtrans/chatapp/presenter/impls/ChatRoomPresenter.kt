@@ -1,9 +1,11 @@
 package com.midtrans.chatapp.presenter.impls
 
+import android.app.Activity
 import android.util.Log
 import com.midtrans.chatapp.etc.config.APIConfig
 import com.midtrans.chatapp.etc.retrofit.BaseApiService
 import com.midtrans.chatapp.etc.retrofit.UtilsApi
+import com.midtrans.chatapp.model.database.DatabaseHandler
 import com.midtrans.chatapp.model.pojo.Chat
 import com.midtrans.chatapp.presenter.interfaces.ChatRoomInterface
 import com.midtrans.chatapp.presenter.interfaces.ServerCallback
@@ -35,8 +37,9 @@ class ChatRoomPresenter : ChatRoomInterface {
                 })
     }
 
-    override fun parsingChat(response: String): ArrayList<Chat> {
-        val listChat: ArrayList<Chat> = ArrayList()
+    override fun parsingChat(response: String, context: Activity): ArrayList<Chat> {
+        var listChat: ArrayList<Chat> = ArrayList()
+        val dataSource = DatabaseHandler(context)
         try {
             val json = JSONObject(insertString(response,
                     "\"item\" : ",
@@ -50,14 +53,15 @@ class ChatRoomPresenter : ChatRoomInterface {
                 val message = item.getString("message")
                 val sentAt = item.getString("sent_at")
                 listChat.add(Chat(dataIndex, sender, avatar, message, sentAt, dataIndex.toBoolean()))
+                dataSource.addCache(Chat(dataIndex, sender, avatar, message, sentAt, dataIndex.toBoolean()))
             }
         } catch (e: Exception) {
             Log.e("${APIConfig.TAG} PARSING", e.toString())
+            listChat = dataSource.getAllCache
         }
         return listChat
     }
 
-    // put the marble in the bag
     private fun insertString(fullString: String, addString: String, index: Int): String {
         val stringBegin = fullString.substring(0, index)
         val stringEnd = fullString.substring(index)
