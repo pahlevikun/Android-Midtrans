@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">ChatApp</string>
+
+    <string name="alert_title_warning">Warning!</string>
+    <string name="alert_body_permission">Please give permission first for ChatApp!</string>
+    <string name="alter_button_permission">Yes</string>
+
 </resources>

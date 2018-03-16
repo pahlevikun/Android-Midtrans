@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ChatApp</string>
+
+    <string name="alert_title_warning">Peringatan!</string>
+    <string name="alert_body_permission">Mohon izinkan layanan untuk ChatApp!</string>
+    <string name="alter_button_permission">Ya</string>
+
+</resources>
