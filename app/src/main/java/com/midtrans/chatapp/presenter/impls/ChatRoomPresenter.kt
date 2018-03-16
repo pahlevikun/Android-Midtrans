@@ -62,7 +62,6 @@ class ChatRoomPresenter : ChatRoomInterface {
         val stringBegin = fullString.substring(0, index)
         val stringEnd = fullString.substring(index)
         return stringBegin + addString + stringEnd
-        Log.d("HASIL INSERT", stringBegin + addString + stringEnd);
     }
 
     private fun Int.toBoolean() = this % 2 == 0

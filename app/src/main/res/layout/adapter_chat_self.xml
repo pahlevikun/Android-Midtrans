@@ -31,6 +31,31 @@
             android:textColor="@color/colorTextChatBodySelf"
             android:textSize="@dimen/_14ssp"
             tools:ignore="HardcodedText,RtlHardcoded" />
+        <LinearLayout
+            android:id="@+id/linearLayoutChatPreviewSelf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/imageViewChatPreviewSelf"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp" />
+            <TextView
+                android:id="@+id/textChatPreviewSelf"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:paddingEnd="@dimen/_13sdp"
+                android:paddingTop="@dimen/_5sdp"
+                android:text="Contoh Teks"
+                android:textColor="@color/colorTextChatBodySelf"
+                android:textSize="@dimen/_14ssp"
+                tools:ignore="HardcodedText,RtlHardcoded" />
+        </LinearLayout>
         <TextView
             android:id="@+id/textChatTimeSelf"
             android:layout_width="match_parent"

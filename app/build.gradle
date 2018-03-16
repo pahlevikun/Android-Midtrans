@@ -67,6 +67,8 @@ dependencies {
     implementation "com.intuit.ssp:ssp-android:$intuit_version"
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'org.jsoup:jsoup:1.10.3'
+    implementation 'com.leocardz:link-preview:2.0.0@aar'
     //UnitTest
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

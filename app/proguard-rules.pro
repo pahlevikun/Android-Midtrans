@@ -49,3 +49,6 @@
 -dontskipnonpubliclibraryclassmembers
 -dontpreverify
 -verbose
+
+#JSOUP
+-keeppackagenames org.jsoup.nodes

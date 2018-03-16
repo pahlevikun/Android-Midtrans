@@ -44,6 +44,7 @@ class ChatRoomActivity : AppCompatActivity() {
     private fun setUpAdapter(chatList: ArrayList<Chat>) {
         if (chatList.size != 0) {
             Picasso.with(this).load(chatList[0].avatar).into(imageViewChatRoomAvatar)
+            textViewChatRoomTitle.text = chatList[0].sender
         }
         val adapter = ChatRoomAdapter(this, chatList)
         val layoutManager = LinearLayoutManager(this,
