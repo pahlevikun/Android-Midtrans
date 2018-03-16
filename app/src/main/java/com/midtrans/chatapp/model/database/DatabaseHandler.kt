@@ -27,7 +27,7 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         val KEY_AVATAR = "avatar"
         val KEY_MESSAGE = "message"
         val KEY_SENT_AT = "sent_at"
-        val KEY_SELFT = "self"
+        val KEY_SELF = "self"
     }
 
 
@@ -36,7 +36,7 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         val CREATE_TABLE = ("CREATE TABLE IF NOT EXISTS " + TABLE_CACHE + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_SENDER + " TEXT,"
                 + KEY_AVATAR + " TEXT," + KEY_MESSAGE + " TEXT,"
-                + KEY_SENT_AT + " TEXT," + KEY_SENT_AT + " INTEGER" + ")")
+                + KEY_SENT_AT + " TEXT," + KEY_SELF + " INTEGER" + ")")
 
         db.execSQL(CREATE_TABLE)
     }

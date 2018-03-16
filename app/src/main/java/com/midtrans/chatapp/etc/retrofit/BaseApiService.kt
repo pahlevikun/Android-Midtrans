@@ -12,7 +12,6 @@ import retrofit2.http.*
 interface BaseApiService {
 
     @GET(APIConfig.GET_CHAT)
-    @Headers("Accept: application/json")
     fun getChat(): Call<ResponseBody>
 
 }

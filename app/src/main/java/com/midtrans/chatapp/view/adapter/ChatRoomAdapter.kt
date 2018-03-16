@@ -15,12 +15,12 @@ import java.util.*
  * Created by farhan on 3/16/18.
  */
 
-class ChatRoomAdapter(val context: Context, private val listChat: ArrayList<Chat>)
+class ChatRoomAdapter(private val context: Context, private val listChat: ArrayList<Chat>)
     : RecyclerView.Adapter<ChatRoomAdapter.ItemRowHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ChatRoomAdapter.ItemRowHolder {
         return when (i) {
-            0 -> {
+            1 -> {
                 val view = LayoutInflater
                         .from(viewGroup.context)
                         .inflate(R.layout.adapter_chat_self, viewGroup, false)
