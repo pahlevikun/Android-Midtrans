@@ -11,13 +11,15 @@ data class Chat(val id: Int,
                 val sender: String,
                 val avatar: String,
                 val message: String,
-                val sent_at: String) : Parcelable {
+                val sent_at: String,
+                val isSelf: Boolean) : Parcelable {
     constructor(source: Parcel) : this(
             source.readInt(),
             source.readString(),
             source.readString(),
             source.readString(),
-            source.readString()
+            source.readString(),
+            1 == source.readInt()
     )
 
     override fun describeContents() = 0
@@ -28,6 +30,7 @@ data class Chat(val id: Int,
         writeString(avatar)
         writeString(message)
         writeString(sent_at)
+        writeInt((if (isSelf) 1 else 0))
     }
 
     companion object {

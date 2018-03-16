@@ -27,6 +27,7 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         val KEY_AVATAR = "avatar"
         val KEY_MESSAGE = "message"
         val KEY_SENT_AT = "sent_at"
+        val KEY_SELFT = "self"
     }
 
 
@@ -35,7 +36,7 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         val CREATE_TABLE = ("CREATE TABLE IF NOT EXISTS " + TABLE_CACHE + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_SENDER + " TEXT,"
                 + KEY_AVATAR + " TEXT," + KEY_MESSAGE + " TEXT,"
-                + KEY_SENT_AT + " TEXT" + ")")
+                + KEY_SENT_AT + " TEXT," + KEY_SENT_AT + " INTEGER" + ")")
 
         db.execSQL(CREATE_TABLE)
     }
@@ -60,12 +61,17 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
                             cursor.getString(1),
                             cursor.getString(2),
                             cursor.getString(3),
-                            cursor.getString(4))
+                            cursor.getString(4),
+                            cursor.getInt(5).toBoolean())
                     cacheList.add(cache)
                 } while (cursor.moveToNext())
             }
             return cacheList
         }
+
+    private fun Int.toBoolean() = this == 1
+    private fun Boolean.toInteger() = if (this) 1 else 0
+
 
     fun deleteCache() {
         val db = this.writableDatabase
@@ -81,6 +87,7 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         values.put(KEY_AVATAR, chat.avatar)
         values.put(KEY_MESSAGE, chat.message)
         values.put(KEY_SENT_AT, chat.sent_at)
+        values.put(KEY_SENT_AT, chat.isSelf.toInteger())
 
         db.insert(TABLE_CACHE, null, values)
         db.close()

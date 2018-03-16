@@ -15,7 +15,7 @@
     tools:ignore="RtlHardcoded">
 
     <TextView
-        android:id="@+id/textChat"
+        android:id="@+id/textChatBodyUser"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -29,7 +29,7 @@
         tools:ignore="HardcodedText,RtlHardcoded" />
 
     <TextView
-        android:id="@+id/textChatTimeSelf"
+        android:id="@+id/textChatTimeUser"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
