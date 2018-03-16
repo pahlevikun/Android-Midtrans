@@ -9,10 +9,10 @@ import android.os.Build
 import android.os.Handler
 import android.support.v4.app.ActivityCompat
 import android.util.Log
-import com.beehapps.eddokter.system.config.APIConfig
 import com.midtrans.chatapp.R
+import com.midtrans.chatapp.etc.config.APIConfig
 import com.midtrans.chatapp.presenter.interfaces.SplashInterface
-import com.midtrans.chatapp.view.ui.MainActivity
+import com.midtrans.chatapp.view.ui.ChatActivity
 
 /**
  * Created by farhan on 3/16/18.
@@ -84,7 +84,7 @@ class SplashPresenter : SplashInterface {
     private fun splashLanding(activity: Activity) {
         Handler().postDelayed(object : Thread() {
             override fun run() {
-                val intent = Intent(activity, MainActivity::class.java)
+                val intent = Intent(activity, ChatActivity::class.java)
                 activity.startActivity(intent)
                 activity.finish()
             }

@@ -2,8 +2,9 @@ package com.midtrans.chatapp.view.ui
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.midtrans.chatapp.R
 
-class MainActivity : AppCompatActivity() {
+class ChatActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
