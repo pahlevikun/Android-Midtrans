@@ -8,7 +8,7 @@
     android:layout_marginBottom="@dimen/_2sdp"
     android:layout_marginEnd="@dimen/_50sdp"
     android:layout_marginStart="@dimen/_10sdp"
-    android:layout_marginTop="@dimen/_2sdp"
+    android:layout_marginTop="@dimen/_3sdp"
     android:background="@drawable/bg_chat_user"
     android:orientation="vertical"
     android:padding="@dimen/_3sdp"
@@ -17,7 +17,7 @@
     <TextView
         android:id="@+id/textChatBodyUser"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="left"
         android:paddingEnd="@dimen/_13sdp"
@@ -59,7 +59,7 @@
     <TextView
         android:id="@+id/textChatTimeUser"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="right"
         android:paddingBottom="@dimen/_5sdp"

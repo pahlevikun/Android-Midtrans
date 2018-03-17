@@ -57,7 +57,7 @@ class ChatRoomActivity : AppCompatActivity() {
             Picasso.with(this).load(chatList[0].avatar).into(imageViewChatRoomAvatar)
             textViewChatRoomTitle.text = chatList[0].sender
         }
-        val adapter = ChatRoomAdapter(this, chatList)
+        val adapter = ChatRoomAdapter(this, chatList, presenter)
         val layoutManager = LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, true)
         layoutManager.stackFromEnd = true

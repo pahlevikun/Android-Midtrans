@@ -1,5 +1,6 @@
 package com.midtrans.chatapp.presenter.impls
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.util.Log
 import com.midtrans.chatapp.etc.config.APIConfig
@@ -13,11 +14,42 @@ import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Created by farhan on 3/16/18.
  */
 class ChatRoomPresenter : ChatRoomInterface {
+
+    @SuppressLint("SimpleDateFormat")
+    override fun convertTime(oldTime: String): String {
+        val oldDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val newDateFormat = SimpleDateFormat("HH:mm")
+        val parsedDate: Date
+        return try {
+            parsedDate = oldDateFormat.parse(oldTime
+                    .replace("T"," ")
+                    .substring(0,oldTime.indexOf("+")))
+            newDateFormat.format(parsedDate).toString()
+        } catch (e: ParseException) {
+            Log.e("$APIConfig CONVERT",e.toString())
+            ""
+        }
+    }
+
+    override fun isOnline(): Boolean {
+        try {
+            val p1 = java.lang.Runtime.getRuntime().exec("ping -c 1 www.google.com")
+            val returnVal = p1.waitFor()
+            return (returnVal == 0)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return false
+    }
+
     override fun getChat(callback: ServerCallback) {
         val mApiService: BaseApiService = UtilsApi.apiService
         mApiService.getChat()
@@ -53,8 +85,10 @@ class ChatRoomPresenter : ChatRoomInterface {
                 val avatar = item.getString("avatar")
                 val message = item.getString("message")
                 val sentAt = item.getString("sent_at")
-                listChat.add(Chat(dataIndex, sender, avatar, message, sentAt, dataIndex.toBoolean()))
-                dataSource.addCache(Chat(dataIndex, sender, avatar, message, sentAt, dataIndex.toBoolean()))
+                listChat.add(Chat(dataIndex, sender, avatar, message, sentAt, dataIndex
+                        .toBoolean()))
+                dataSource.addCache(Chat(dataIndex, sender, avatar, message, sentAt, dataIndex
+                        .toBoolean()))
             }
         } catch (e: Exception) {
             Log.e("${APIConfig.TAG} PARSING", e.toString())

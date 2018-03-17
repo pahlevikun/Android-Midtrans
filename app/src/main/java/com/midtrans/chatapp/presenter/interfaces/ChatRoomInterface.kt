@@ -10,4 +10,8 @@ interface ChatRoomInterface {
     fun getChat(callback: ServerCallback)
 
     fun parsingChat(response: String, context: Activity): ArrayList<Chat>
+
+    fun isOnline() : Boolean
+
+    fun convertTime(oldTime:String) : String
 }

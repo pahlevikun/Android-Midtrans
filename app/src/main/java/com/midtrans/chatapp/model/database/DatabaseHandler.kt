@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.res.Resources
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import com.midtrans.chatapp.model.pojo.Chat
 import java.util.*
 
@@ -19,7 +20,7 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
     var res: Resources = context.resources
 
     companion object {
-        val DATABASE_VERSION = 1
+        val DATABASE_VERSION = 2
         val DATABASE_NAME = "ChatApp"
         val TABLE_CACHE = "cache"
         val KEY_ID = "_id"
@@ -87,7 +88,7 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         values.put(KEY_AVATAR, chat.avatar)
         values.put(KEY_MESSAGE, chat.message)
         values.put(KEY_SENT_AT, chat.sent_at)
-        values.put(KEY_SENT_AT, chat.isSelf.toInteger())
+        values.put(KEY_SELF, chat.isSelf.toInteger())
 
         db.insert(TABLE_CACHE, null, values)
         db.close()
