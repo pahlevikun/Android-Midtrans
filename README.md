@@ -63,7 +63,7 @@ For an application to be easily extensible and maintainable we need to define we
 MVP makes views independent from our data source. We divide the application into at least three different layers, which let us test them independently. With MVP we are able to take most of logic out from the activities so that we can test it without using instrumentation tests.
 #### Current MVP
 ![Current MVP](https://raw.githubusercontent.com/pahlevikun/Android-Midtrans/master/MVP2.png)
-So this is my current MVP Pattern, I use 4 type as general (Model, View, Presenter, Etc) Model just like description before with Pojo and Database. View contains 2 type of component I use for UI and Adapter. Presenter contains interface and prenseter itself (impl). The last is Etc, it contains APIConfig, retrofit, and utils. But for this project I cancel use utils, previously I want to make some class that parse the request code like what is 200, 201, 404, 500, and many more but I think it will spent many time.
+<br>So this is my current MVP Pattern, I use 4 type as general (Model, View, Presenter, Etc) Model just like description before with Pojo and Database. View contains 2 type of component I use for UI and Adapter. Presenter contains interface and prenseter itself (impl). The last is Etc, it contains APIConfig, retrofit, and utils. But for this project I cancel use utils, previously I want to make some class that parse the request code like what is 200, 201, 404, 500, and many more but I think it will spent many time.
 ## Challenge
 * JSON in API isn't valid, so I manipulate it first.
 * I'm not familiar with Sent_at value, so I manipulate it.
