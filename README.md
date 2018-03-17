@@ -65,6 +65,7 @@ MVP makes views independent from our data source. We divide the application into
 ![Current MVP](https://raw.githubusercontent.com/pahlevikun/Android-Midtrans/master/MVP2.png)
 <br>So this is my current MVP Pattern, I use 4 type as general (Model, View, Presenter, Etc) Model just like description before with Pojo and Database. View contains 2 type of component I use for UI and Adapter. Presenter contains interface and prenseter itself (impl). The last is Etc, it contains APIConfig, retrofit, and utils. But for this project I cancel use utils, previously I want to make some class that parse the request code like what is 200, 201, 404, 500, and many more but I think it will spent many time.
 ## Challenge
+* Honestly I use very bad way that I manipulate the json before parse it (because I think it easy and I know that is the purpose of the json), and not ask technical interviewer about it. I realize it just now, so I think just like submit this assigment and forget it like when you in Mid-test or Final-exam.
 * JSON in API isn't valid, so I manipulate it first.
 * I'm not familiar with Sent_at value, so I manipulate it.
 * The data in JSON is only for same sender (1 people in chat room). This is a test and the objective is for making aesthetic UI, so I manipulate it just like 2 people in same chat room for better UI example (better than all box in left only).
