@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.activity_chat_room.*
 
 class ChatRoomActivity : AppCompatActivity() {
 
+    //Declaring presenter and progressdialog
     private val presenter = ChatRoomPresenter()
     private var loading: ProgressDialog? = null
 
@@ -28,24 +29,34 @@ class ChatRoomActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_room)
 
+        //Set progress dialog and show it
         loading = ProgressDialog.show(this, getString(R.string.progress_loading),
                 getString(R.string.progress_getting), false, false)
+        //Call getchat from presenter
         presenter.getChat(object : ServerCallback {
             override fun onSuccess(response: String) {
+                //hide progress dialog
                 hideDialog()
+                //parse data from presenter and set it to recyclerview
                 setUpAdapter(presenter.parsingChat(response, this@ChatRoomActivity))
             }
 
             override fun onFailed(response: String) {
+                //hide progress dialog
                 hideDialog()
+                //Show snackbar because of failed
                 Snackbar.make(coordinatorLayoutChatRoom, response, Snackbar.LENGTH_SHORT).show()
+                //parse data from presenter and set it to recyclerview
                 setUpAdapter(presenter.parsingChat(response, this@ChatRoomActivity))
             }
 
             override fun onFailure(throwable: Throwable) {
+                //hide progress dialog
                 hideDialog()
+                //Show snackbar because of failed
                 Snackbar.make(coordinatorLayoutChatRoom, throwable.toString(),
                         Snackbar.LENGTH_SHORT).show()
+                //parse data from presenter and set it to recyclerview
                 setUpAdapter(presenter.parsingChat(throwable.toString(),
                         this@ChatRoomActivity))
             }
@@ -53,17 +64,24 @@ class ChatRoomActivity : AppCompatActivity() {
     }
 
     private fun setUpAdapter(chatList: ArrayList<Chat>) {
+        //if chatlist isn't empty, set the avatar and username
         if (chatList.size != 0) {
             Picasso.with(this).load(chatList[0].avatar).into(imageViewChatRoomAvatar)
             textViewChatRoomTitle.text = chatList[0].sender
         }
+        //Declaring adapter and layout manager
         val adapter = ChatRoomAdapter(this, chatList, presenter)
         val layoutManager = LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, true)
+        //Set layout manager from top to bottom (normally bottom to top because of reverLayout)
         layoutManager.stackFromEnd = true
+        //Set the layout manager to recyclerView
         recyclerViewChatRoom.layoutManager = layoutManager
+        //Disable nested scrolling
         recyclerViewChatRoom.isNestedScrollingEnabled = false
+        //Set the adapter to recyclerview
         recyclerViewChatRoom.adapter = adapter
+        //Refresh adapter with notify
         adapter.notifyDataSetChanged()
     }
 

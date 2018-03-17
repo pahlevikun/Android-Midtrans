@@ -13,15 +13,18 @@ import com.midtrans.chatapp.presenter.impls.SplashPresenter
 
 class SplashActivity : AppCompatActivity() {
 
+    //Variable for checking in onResume
     private var resume = false
+    //Declare presenter
     private var presenter = SplashPresenter()
-
+    //PERMISIION
     private val permissionArray = arrayOf(android.Manifest.permission.INTERNET,
             android.Manifest.permission.ACCESS_NETWORK_STATE)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+        //Make condition for checking permission, if return true go to passingSplashScreen()
         if (presenter.checkPermission(this, permissionArray)){
             passingSplashScreen()
         }
@@ -29,6 +32,7 @@ class SplashActivity : AppCompatActivity() {
 
     public override fun onResume() {
         super.onResume()
+        //resume use for prevent check permission in first time
         if (resume) {
             if(presenter.checkPermission(this, permissionArray)){
                 passingSplashScreen()
@@ -38,6 +42,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun passingSplashScreen(){
+        //Delay 2.5 s before go to ChatRoomActivity
         Handler().postDelayed(object : Thread() {
             override fun run() {
                 val intent = Intent(this@SplashActivity, ChatRoomActivity::class.java)
@@ -50,6 +55,7 @@ class SplashActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
                                             grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        //Same as before, check result if true go to passingSplashScreen(), else give permission
         if (presenter.resultPermission(this, requestCode, grantResults)){
             passingSplashScreen()
         }else{
@@ -67,5 +73,7 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {}
+    override fun onBackPressed() {
+        //prevent user for close the app when checking permission
+    }
 }

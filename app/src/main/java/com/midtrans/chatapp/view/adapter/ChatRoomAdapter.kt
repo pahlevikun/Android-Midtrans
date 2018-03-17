@@ -29,14 +29,17 @@ class ChatRoomAdapter(private val context: Context, private val listChat: ArrayL
     : RecyclerView.Adapter<ChatRoomAdapter.ItemRowHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ChatRoomAdapter.ItemRowHolder {
+        //Set layout based on getItemViewType, if isSelf return 1 else 0
         return when (i) {
             1 -> {
+                //This is layout for right box (self)
                 val view = LayoutInflater
                         .from(viewGroup.context)
                         .inflate(R.layout.adapter_chat_self, viewGroup, false)
                 ViewHolderSelf(view)
             }
             else -> {
+                //This is layout for left box (user)
                 val view = LayoutInflater
                         .from(viewGroup.context)
                         .inflate(R.layout.adapter_chat_user, viewGroup, false)
@@ -47,10 +50,11 @@ class ChatRoomAdapter(private val context: Context, private val listChat: ArrayL
     }
 
     override fun onBindViewHolder(viewHolder: ChatRoomAdapter.ItemRowHolder, i: Int) {
-        viewHolder.bindType(listChat[i], context,presenter)
+        //Because of 2 type of layout, make new class for handling 2 type of layout
+        viewHolder.bindType(listChat[i], context, presenter)
     }
 
-
+    //This is some implementation of adapter interface for checking type
     override fun getItemViewType(position: Int): Int = if (listChat[position].isSelf) {
         0
     } else {
@@ -69,8 +73,10 @@ class ChatRoomAdapter(private val context: Context, private val listChat: ArrayL
 
     }
 
+    //User viewholder
     class ViewHolderUser(itemView: View) : ItemRowHolder(itemView) {
 
+        //Declaring view
         init {
             itemView.textChatBodyUser
             itemView.textChatTimeUser
@@ -79,11 +85,13 @@ class ChatRoomAdapter(private val context: Context, private val listChat: ArrayL
             itemView.imageViewChatPreviewUser
         }
 
+        //Override bindType so the row now automatically use its layout
         override fun bindType(item: Chat, context: Context, presenter: ChatRoomPresenter) {
             itemView.textChatTimeUser.text = presenter.convertTime(item.sent_at)
             itemView.textChatBodyUser.text = item.message
+            //This is for make link preview based on chat with only contains link (start with http)
             if (item.message.startsWith("http")) {
-                if (presenter.isOnline()){
+                if (presenter.isOnline()) {
                     val textCrawler = TextCrawler()
                     val linkPreviewCallback = object : LinkPreviewCallback {
                         override fun onPre() {
@@ -91,6 +99,7 @@ class ChatRoomAdapter(private val context: Context, private val listChat: ArrayL
 
                         @SuppressLint("SetTextI18n")
                         override fun onPos(sourceContent: SourceContent, b: Boolean) {
+                            //after getting result in onPos, show the previewLayout
                             itemView.linearLayoutChatPreviewUser.visibility = View.VISIBLE
                             itemView.textChatPreviewUser.text = sourceContent.description
                             Picasso
@@ -99,6 +108,7 @@ class ChatRoomAdapter(private val context: Context, private val listChat: ArrayL
                                             .replace("[", "")
                                             .replace("]", ""))
                                     .into(itemView.imageViewChatPreviewUser)
+                            //if previewLayout clicked, it intent to browser for open link
                             itemView.linearLayoutChatPreviewUser.setOnClickListener {
                                 val intent = Intent(Intent.ACTION_VIEW)
                                 intent.data = Uri.parse(item.message)
@@ -113,6 +123,7 @@ class ChatRoomAdapter(private val context: Context, private val listChat: ArrayL
 
     }
 
+    //Same description as before but it for right box (self)
     class ViewHolderSelf(itemView: View) : ItemRowHolder(itemView) {
 
         init {
@@ -123,11 +134,11 @@ class ChatRoomAdapter(private val context: Context, private val listChat: ArrayL
             itemView.linearLayoutChatPreviewSelf
         }
 
-        override fun bindType(item: Chat, context: Context,presenter: ChatRoomPresenter) {
+        override fun bindType(item: Chat, context: Context, presenter: ChatRoomPresenter) {
             itemView.textChatTimeSelf.text = presenter.convertTime(item.sent_at)
             itemView.textChatBodySelf.text = item.message
             if (item.message.startsWith("https")) {
-                if (presenter.isOnline()){
+                if (presenter.isOnline()) {
                     val textCrawler = TextCrawler()
                     val linkPreviewCallback = object : LinkPreviewCallback {
                         override fun onPre() {

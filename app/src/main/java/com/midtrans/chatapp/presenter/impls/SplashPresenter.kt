@@ -19,25 +19,7 @@ import com.midtrans.chatapp.view.ui.ChatRoomActivity
  */
 class SplashPresenter : SplashInterface {
 
-    val isOnline: Boolean
-        get() {
-            try {
-                val p1 = java.lang.Runtime.getRuntime().exec("ping -c 1 www.google.com")
-                val returnVal = p1.waitFor()
-                return (returnVal == 0)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-            return false
-        }
-
-    private fun isNetworkAvailable(activity: Activity): Boolean {
-        val connectivityManager = activity.getSystemService(Context.CONNECTIVITY_SERVICE)
-                as ConnectivityManager
-        val activeNetworkInfo = connectivityManager.activeNetworkInfo
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected
-    }
-
+    //This is for call check permission, it will return true or false after checking hasPermission
     override fun checkPermission(activity: Activity, PERMISSION: Array<String>) : Boolean {
         val returnResult: Boolean
         if (Build.VERSION.SDK_INT >= 23) {
@@ -59,24 +41,26 @@ class SplashPresenter : SplashInterface {
         return returnResult
     }
 
+    //This is for receiving checking permission, it will return true or false
     override fun resultPermission(activity: Activity, requestCode: Int, grantResults: IntArray)
             : Boolean {
         var returnResult = false
         when (requestCode) {
             APIConfig.REQUEST_PERMISSION -> {
-                if (grantResults.isNotEmpty() && grantResults[0]
+                returnResult = if (grantResults.isNotEmpty() && grantResults[0]
                         == PackageManager.PERMISSION_GRANTED) {
                     Log.d(APIConfig.TAG, "PERMISSIONS grant")
-                    returnResult = true
+                    true
                 } else {
                     Log.d(APIConfig.TAG, "PERMISSIONS Denied")
-                    returnResult = false
+                    false
                 }
             }
         }
         return returnResult
     }
 
+    //This is for checking permission, it will return true or false
     private fun hasPermissions(context: Context?, vararg permissions: String): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null) {
             permissions

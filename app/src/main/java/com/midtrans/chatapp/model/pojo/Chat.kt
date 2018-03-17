@@ -7,6 +7,7 @@ import android.os.Parcelable
  * Created by farhan on 3/16/18.
  */
 
+//Data class with parcelable (generate with tools, use for preventif action) if not use delete it
 data class Chat(val id: Int,
                 val sender: String,
                 val avatar: String,
