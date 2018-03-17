@@ -38,57 +38,43 @@ class SplashPresenter : SplashInterface {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected
     }
 
-    override fun checkPermission(activity: Activity, PERMISSION: Array<String>) {
+    override fun checkPermission(activity: Activity, PERMISSION: Array<String>) : Boolean {
+        val returnResult: Boolean
         if (Build.VERSION.SDK_INT >= 23) {
             Log.d("${APIConfig.TAG} SPLASH", "IN IF Build.VERSION.SDK_INT >= 23")
 
-            if (!hasPermissions(activity, *PERMISSION)) {
+            returnResult = if (!hasPermissions(activity, *PERMISSION)) {
                 Log.d("${APIConfig.TAG} SPLASH", "IN IF hasPermissions")
                 ActivityCompat.requestPermissions(activity, PERMISSION,
                         APIConfig.REQUEST_PERMISSION)
+                false
             } else {
                 Log.d("${APIConfig.TAG} SPLASH", "IN ELSE hasPermissions")
-                splashLanding(activity)
+                true
             }
         } else {
             Log.d("${APIConfig.TAG} SPLASH", "IN ELSE  Build.VERSION.SDK_INT >= 23")
-            splashLanding(activity)
+            returnResult = true
         }
+        return returnResult
     }
 
-    override fun resultPermission(activity: Activity, requestCode: Int, grantResults: IntArray) {
+    override fun resultPermission(activity: Activity, requestCode: Int, grantResults: IntArray)
+            : Boolean {
+        var returnResult = false
         when (requestCode) {
             APIConfig.REQUEST_PERMISSION -> {
                 if (grantResults.isNotEmpty() && grantResults[0]
                         == PackageManager.PERMISSION_GRANTED) {
                     Log.d(APIConfig.TAG, "PERMISSIONS grant")
-                    splashLanding(activity)
+                    returnResult = true
                 } else {
                     Log.d(APIConfig.TAG, "PERMISSIONS Denied")
-                    val alert = android.support.v7.app.AlertDialog.Builder(activity)
-                    alert.setTitle(activity.getString(R.string.alert_title_warning))
-                    alert.setMessage(activity.getString(R.string.alert_body_permission))
-                    alert.setCancelable(false)
-                    alert.setPositiveButton(activity.getString(R.string.alter_button_permission))
-                    { _, _ ->
-                        // TODO Auto-generated method stub
-                        activity.finish()
-                        activity.startActivity(activity.intent)
-                    }
-                    alert.show()
+                    returnResult = false
                 }
             }
         }
-    }
-
-    private fun splashLanding(activity: Activity) {
-        Handler().postDelayed(object : Thread() {
-            override fun run() {
-                val intent = Intent(activity, ChatRoomActivity::class.java)
-                activity.startActivity(intent)
-                activity.finish()
-            }
-        }, 2500)
+        return returnResult
     }
 
     private fun hasPermissions(context: Context?, vararg permissions: String): Boolean {

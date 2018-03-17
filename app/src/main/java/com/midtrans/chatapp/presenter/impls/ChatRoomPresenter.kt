@@ -46,6 +46,7 @@ class ChatRoomPresenter : ChatRoomInterface {
                     response.indexOf("\"data\":{") + 11))
             val jsonData = json.getJSONObject("data")
             val jsonArrayData = jsonData.getJSONArray("item")
+            dataSource.deleteCache()
             (0 until jsonArrayData.length()).forEach { dataIndex ->
                 val item = jsonArrayData.getJSONObject(dataIndex)
                 val sender = item.getString("sender")

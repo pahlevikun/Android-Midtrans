@@ -6,7 +6,7 @@ import android.app.Activity
  * Created by farhan on 3/16/18.
  */
 interface SplashInterface {
-    fun checkPermission(activity: Activity, PERMISSION: Array<String>)
+    fun checkPermission(activity: Activity, PERMISSION: Array<String>) : Boolean
 
-    fun resultPermission(activity: Activity, requestCode: Int, grantResults: IntArray)
+    fun resultPermission(activity: Activity, requestCode: Int, grantResults: IntArray) : Boolean
 }
