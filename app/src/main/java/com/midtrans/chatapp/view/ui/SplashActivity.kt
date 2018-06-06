@@ -63,8 +63,7 @@ class SplashActivity : AppCompatActivity() {
             alert.setTitle(getString(R.string.alert_title_warning))
             alert.setMessage(getString(R.string.alert_body_permission))
             alert.setCancelable(false)
-            alert.setPositiveButton(getString(R.string.alter_button_permission))
-            { _, _ ->
+            alert.setPositiveButton(getString(R.string.alter_button_permission)) { _, _ ->
                 // TODO Auto-generated method stub
                 finish()
                 startActivity(intent)

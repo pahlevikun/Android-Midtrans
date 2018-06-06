@@ -7,7 +7,10 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import com.midtrans.chatapp.R
+import com.midtrans.chatapp.model.ChatGson
+import com.midtrans.chatapp.model.Datum
 import com.midtrans.chatapp.model.pojo.Chat
 import com.midtrans.chatapp.presenter.impls.ChatRoomPresenter
 import com.midtrans.chatapp.presenter.interfaces.ServerCallback
@@ -63,11 +66,12 @@ class ChatRoomActivity : AppCompatActivity() {
         })
     }
 
-    private fun setUpAdapter(chatList: ArrayList<Chat>) {
+    private fun setUpAdapter(data: ChatGson) {
         //if chatlist isn't empty, set the avatar and username
-        if (chatList.size != 0) {
-            Picasso.with(this).load(chatList[0].avatar).into(imageViewChatRoomAvatar)
-            textViewChatRoomTitle.text = chatList[0].sender
+        val chatList = data.data
+        if (chatList!=null || chatList!!.isNotEmpty()) {
+                Picasso.with(this).load(chatList[0].avatar).into(imageViewChatRoomAvatar)
+                textViewChatRoomTitle.text = chatList[0].sender
         }
         //Declaring adapter and layout manager
         val adapter = ChatRoomAdapter(this, chatList, presenter)

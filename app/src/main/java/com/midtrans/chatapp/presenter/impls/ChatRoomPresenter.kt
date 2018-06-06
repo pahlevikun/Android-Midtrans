@@ -3,9 +3,11 @@ package com.midtrans.chatapp.presenter.impls
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.util.Log
+import com.google.gson.GsonBuilder
 import com.midtrans.chatapp.etc.config.APIConfig
 import com.midtrans.chatapp.etc.retrofit.BaseApiService
 import com.midtrans.chatapp.etc.retrofit.UtilsApi
+import com.midtrans.chatapp.model.ChatGson
 import com.midtrans.chatapp.model.database.DatabaseHandler
 import com.midtrans.chatapp.model.pojo.Chat
 import com.midtrans.chatapp.presenter.interfaces.ChatRoomInterface
@@ -84,39 +86,18 @@ class ChatRoomPresenter : ChatRoomInterface {
     //This is method for parsing json into arraylist with chat model
     //Because of invalid json format, I must to 're-engineer' the json
     //If failed parsing chat, we use data from local storage as a cache
-    override fun parsingChat(response: String, context: Activity): ArrayList<Chat> {
+    override fun parsingChat(response: String, context: Activity): ChatGson {
         //First declaring all variable
-        var listChat: ArrayList<Chat> = ArrayList()
-        val dataSource = DatabaseHandler(context)
+        var dataChat: ChatGson? = null
         try {
-            //Here's creating json from string but I manipulate it first
-            val json = JSONObject(insertString(response,
-                    "\"item\" : ",
-                    response.indexOf("\"data\":{") + 11))
-            val jsonData = json.getJSONObject("data")
-            val jsonArrayData = jsonData.getJSONArray("item")
-            //Untill this step, the chance of success parsing is bigger than failed
-            //So I think I must delete old cache and replace it with new cache
-            dataSource.deleteCache()
-            (0 until jsonArrayData.length()).forEach { dataIndex ->
-                val item = jsonArrayData.getJSONObject(dataIndex)
-                val sender = item.getString("sender")
-                val avatar = item.getString("avatar")
-                val message = item.getString("message")
-                val sentAt = item.getString("sent_at")
-                //Adding value to list
-                listChat.add(Chat(dataIndex, sender, avatar, message, sentAt, dataIndex
-                        .toBoolean()))
-                //Adding value to local database as a cache
-                dataSource.addCache(Chat(dataIndex, sender, avatar, message, sentAt, dataIndex
-                        .toBoolean()))
-            }
+            val jsonGson = JSONObject(response)
+            val gson = GsonBuilder().create()
+            dataChat = gson.fromJson(jsonGson.toString(),ChatGson::class.java)
         } catch (e: Exception) {
             //If there's any exception like no json or other, set the listChat data from local db
             Log.e("${APIConfig.TAG} PARSING", e.toString())
-            listChat = dataSource.getAllCache
         }
-        return listChat
+        return dataChat!!
     }
 
     //Insert string method for manipulating json

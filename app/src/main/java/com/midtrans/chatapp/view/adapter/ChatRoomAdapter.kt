@@ -12,6 +12,7 @@ import com.leocardz.link.preview.library.LinkPreviewCallback
 import com.leocardz.link.preview.library.SourceContent
 import com.leocardz.link.preview.library.TextCrawler
 import com.midtrans.chatapp.R
+import com.midtrans.chatapp.model.Datum
 import com.midtrans.chatapp.model.pojo.Chat
 import com.midtrans.chatapp.presenter.impls.ChatRoomPresenter
 import com.squareup.picasso.Picasso
@@ -24,7 +25,7 @@ import java.util.*
  * Created by farhan on 3/16/18.
  */
 
-class ChatRoomAdapter(private val context: Context, private val listChat: ArrayList<Chat>,
+class ChatRoomAdapter(private val context: Context, private val listChat: List<Datum>,
                       private val presenter: ChatRoomPresenter)
     : RecyclerView.Adapter<ChatRoomAdapter.ItemRowHolder>() {
 
@@ -49,13 +50,16 @@ class ChatRoomAdapter(private val context: Context, private val listChat: ArrayL
 
     }
 
+    //Casting Interger into boolean
+    private fun Int.toBoolean() = this % 2 == 0
+
     override fun onBindViewHolder(viewHolder: ChatRoomAdapter.ItemRowHolder, i: Int) {
         //Because of 2 type of layout, make new class for handling 2 type of layout
         viewHolder.bindType(listChat[i], context, presenter)
     }
 
     //This is some implementation of adapter interface for checking type
-    override fun getItemViewType(position: Int): Int = if (listChat[position].isSelf) {
+    override fun getItemViewType(position: Int): Int = if (position.toBoolean()) {
         0
     } else {
         1
@@ -67,7 +71,7 @@ class ChatRoomAdapter(private val context: Context, private val listChat: ArrayL
 
     open class ItemRowHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        open fun bindType(item: Chat, context: Context, presenter: ChatRoomPresenter) {
+        open fun bindType(item: Datum, context: Context, presenter: ChatRoomPresenter) {
 
         }
 
@@ -86,11 +90,11 @@ class ChatRoomAdapter(private val context: Context, private val listChat: ArrayL
         }
 
         //Override bindType so the row now automatically use its layout
-        override fun bindType(item: Chat, context: Context, presenter: ChatRoomPresenter) {
-            itemView.textChatTimeUser.text = presenter.convertTime(item.sent_at)
+        override fun bindType(item: Datum, context: Context, presenter: ChatRoomPresenter) {
+            itemView.textChatTimeUser.text = presenter.convertTime(item.sentAt!!)
             itemView.textChatBodyUser.text = item.message
             //This is for make link preview based on chat with only contains link (start with http)
-            if (item.message.startsWith("http")) {
+            if (item.message!!.startsWith("http")) {
                 if (presenter.isOnline()) {
                     val textCrawler = TextCrawler()
                     val linkPreviewCallback = object : LinkPreviewCallback {
@@ -134,10 +138,10 @@ class ChatRoomAdapter(private val context: Context, private val listChat: ArrayL
             itemView.linearLayoutChatPreviewSelf
         }
 
-        override fun bindType(item: Chat, context: Context, presenter: ChatRoomPresenter) {
-            itemView.textChatTimeSelf.text = presenter.convertTime(item.sent_at)
+        override fun bindType(item: Datum, context: Context, presenter: ChatRoomPresenter) {
+            itemView.textChatTimeSelf.text = presenter.convertTime(item.sentAt!!)
             itemView.textChatBodySelf.text = item.message
-            if (item.message.startsWith("https")) {
+            if (item.message!!.startsWith("https")) {
                 if (presenter.isOnline()) {
                     val textCrawler = TextCrawler()
                     val linkPreviewCallback = object : LinkPreviewCallback {
